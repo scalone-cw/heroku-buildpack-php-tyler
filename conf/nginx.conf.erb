@@ -105,7 +105,6 @@ http {
     }
 
     location ~ .*\.php$ {
-			try_files $uri $uri/ /index.php?$args;
 			try_files $uri =404;
       limit_conn phplimit 5; # limit to 5 concurrent users to PHP per IP.
       include         fastcgi_params;
