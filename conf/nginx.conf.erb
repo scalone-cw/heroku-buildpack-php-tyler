@@ -100,8 +100,13 @@ http {
 
     include /app/conf/nginx.d/*.conf;
 
+    location / {
+      try_files $uri $uri/ /index.php?q=$uri&$args;
+    }
+
     location ~ .*\.php$ {
 			try_files $uri $uri/ /index.php?$args;
+			try_files $uri =404;
       limit_conn phplimit 5; # limit to 5 concurrent users to PHP per IP.
       include         fastcgi_params;
       fastcgi_param   HTTPS $my_https if_not_empty;
